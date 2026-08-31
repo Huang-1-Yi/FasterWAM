@@ -28,6 +28,7 @@ The key insight behind **Faster-WAM** is that future representations are not mer
 - [Training](#training)
 - [Released Checkpoints](#released-checkpoints)
 - [Evaluation](#evaluation)
+- [Latency](#latency)
 - [Acknowledgments](#acknowledgments)
 - [Citation](#citation)
 
@@ -295,6 +296,18 @@ CKPT_PATH=checkpoints/fasterwam_release/robotwin/step_029355.pt \
 DATASET_STATS_PATH=checkpoints/fasterwam_release/robotwin/dataset_stats.json \
 NUM_GPUS=8 \
 bash scripts/eval_fasterwam_robotwin.sh
+```
+
+## Latency
+
+To measure the Inference Latency:
+
+```bash
+# All models
+bash scripts/measure_latency.sh
+
+# Selected models: jointwam, fastwam, fasterwam
+bash scripts/measure_latency.sh --models jointwam fasterwam
 ```
 
 ## Acknowledgments
