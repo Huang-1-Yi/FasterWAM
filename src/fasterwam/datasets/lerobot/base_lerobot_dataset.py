@@ -68,21 +68,30 @@ class BaseLerobotDataset(torch.utils.data.Dataset):
         delta_timestamps = {}
         for meta in self.image_meta:
             key = meta["key"]
-            meta["lerobot_key"] = f"observation.images.{key}" if key != "default" else "observation.images"
+            meta["lerobot_key"] = meta.get(
+                "lerobot_key",
+                f"observation.images.{key}" if key != "default" else "observation.images",
+            )
             delta_timestamps[meta["lerobot_key"]] = [
                 (t * global_sample_stride) / fps for t in range(-past_obs_size, -past_obs_size + obs_size)
             ]
         
         for meta in self.state_meta:
             key = meta["key"]
-            meta["lerobot_key"] = f"observation.state.{key}" if key != "default" else "observation.state"
+            meta["lerobot_key"] = meta.get(
+                "lerobot_key",
+                f"observation.state.{key}" if key != "default" else "observation.state",
+            )
             delta_timestamps[meta["lerobot_key"]] = [
                 (t * global_sample_stride) / fps for t in range(-past_obs_size, -past_obs_size + obs_size)
             ]
         
         for meta in self.action_meta:
             key = meta["key"]
-            meta["lerobot_key"] = f"action.{key}" if key != "default" else "action"
+            meta["lerobot_key"] = meta.get(
+                "lerobot_key",
+                f"action.{key}" if key != "default" else "action",
+            )
             delta_timestamps[meta["lerobot_key"]] = [(t * global_sample_stride) / fps for t in range(-past_action_size, -past_action_size + action_size)]
 
         episodes = {}
